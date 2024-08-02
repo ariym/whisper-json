@@ -8,7 +8,7 @@ import shell from 'shelljs';
 
 import readlineSync from 'readline-sync';
 
-import {DEFAULT_MODEL, NODE_MODULES_MODELS_PATH} from './constants'
+import { DEFAULT_MODEL, NODE_MODULES_MODELS_PATH } from './constants'
 
 const MODELS_LIST = [
   "tiny",
@@ -22,7 +22,6 @@ const MODELS_LIST = [
   "large-v1",
   "large"
 ];
-
 
 const askModel = async () => {
   const answer = await readlineSync.question(`\n[whisper-node] Enter model name (e.g. 'base.en') or 'cancel' to exit\n(ENTER for base.en): `)
@@ -46,7 +45,18 @@ const askModel = async () => {
   return answer;
 }
 
+const getModelName = async () => {
+  const args = process.argv.slice(2);
+  const modelArgIndex = args.indexOf('--model');
+  if (modelArgIndex !== -1 && args[modelArgIndex + 1] && MODELS_LIST.includes(args[modelArgIndex + 1])) {
+    return args[modelArgIndex + 1];
+  } else if (modelArgIndex !== -1) {
+    console.log("\n[whisper-node] FAIL: Name not found or not specified. Check your spelling OR quit wizard and use custom model.");
+    process.exit(1);
+  }
 
+  return await askModel();
+}
 
 export default async function downloadModel() {
   try {
@@ -73,12 +83,12 @@ export default async function downloadModel() {
       throw "whisper-node downloader is not being run from the correct path! cd to project root and run again."
     }
 
-    const modelName = await askModel();
+    const modelName = await getModelName();
 
     // default is .sh
     let scriptPath = "./download-ggml-model.sh"
     // windows .cmd version
-    if(process.platform === 'win32') scriptPath = "download-ggml-model.cmd";
+    if (process.platform === 'win32') scriptPath = "download-ggml-model.cmd";
 
     shell.exec(`${scriptPath} ${modelName}`);
 
