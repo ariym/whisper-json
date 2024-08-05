@@ -74,7 +74,7 @@ const transcript = await whisper(filePath, options);
 
 ### Input File Format
 
-Files must be .wav and 16Hz
+Files must be .wav and 16kHz
 
 Example .mp3 file converted with an [FFmpeg](https://ffmpeg.org) command: ```ffmpeg -i input.mp3 -ar 16000 output.wav```
 
