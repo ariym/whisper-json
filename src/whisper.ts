@@ -47,6 +47,7 @@ const getFlags = (flags: IFlagTypes): string => {
   let s = "";
 
   // output files
+  if (flags.output_file_path) s += " -of " + flags.output_file_path;
   if (flags.gen_file_txt) s += " -otxt";
   if (flags.gen_file_subtitle) s += " -osrt";
   if (flags.gen_file_vtt) s += " -ovtt";
@@ -90,5 +91,6 @@ export type IFlagTypes = {
   "gen_file_vtt"?: boolean,
   "timestamp_size"?: number,
   "word_timestamps"?: boolean,
-  "language"?: string
+  "language"?: string,
+  "output_file_path"?: string,
 }
