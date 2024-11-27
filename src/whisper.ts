@@ -92,5 +92,5 @@ export type IFlagTypes = {
   "timestamp_size"?: number,
   "word_timestamps"?: boolean,
   "language"?: string,
-  "output_file_path"?: string,
+  "output_file_path"?: string
 }
