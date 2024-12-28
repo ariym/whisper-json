@@ -64,7 +64,7 @@ const options = {
     gen_file_txt: false,      // outputs .txt file
     gen_file_subtitle: false, // outputs .srt file
     gen_file_vtt: false,      // outputs .vtt file
-    word_timestamps: true     // timestamp for every word
+    word_timestamps: true,    // timestamp for every word
     // timestamp_size: 0      // cannot use along with word_timestamps:true
   }
 }
