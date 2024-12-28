@@ -6,10 +6,10 @@ export type ITranscriptLine = {
 
 export default function parseTranscript(vtt: string): ITranscriptLine[] {
   // 1. separate lines by matching the format like "[00:03:04.000 --> 00:03:13.000]   XXXXXX"
-  const lines: string[] = vtt.match(/\[[0-9:.]+\s-->\s[0-9:.]+\].*/g);
+  let lines: string[] = vtt.match(/\[[0-9:.]+\s-->\s[0-9:.]+\].*/g) || [];
 
-  // 2. remove the first line, which is empty
-  lines.shift();
+  // 2. remove the empty lines
+  lines = lines.filter(line => line.length);
 
   // 3. convert each line into an object
   return lines.map(line => {
